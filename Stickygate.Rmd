@@ -1,0 +1,11 @@
+---
+author: Mojisoluwa (Jiso) Awe
+title: "Operation Sticky Gate"
+output: html_notebook
+---
+
+# What is Operation Sticky Gate?
+
+Major League Baseball's 2021 season has been marked by record breaking statistics. Particularly the record low ERA's and extremely high spin rates.
+
+## Before the Crackdown
