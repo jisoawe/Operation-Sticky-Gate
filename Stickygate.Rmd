@@ -9,3 +9,39 @@ output: html_notebook
 Major League Baseball's 2021 season has been marked by record breaking statistics. Particularly the record low ERA's and extremely high spin rates.
 
 ## Before the Crackdown
+
+
+## Velocity vs Spin Rate
+
+
+```{r}
+library(ggplot2) ## loading packages
+library(ggExtra)
+library(dplyr)
+library(tidyverse)
+```
+
+
+
+```{r}
+b4 <-
+  read.csv('b4June1.csv')
+b4
+```
+
+
+
+```{r}
+b4gr <-
+  b4 %>%
+  ggplot(aes(x = velocity, y = spin_rate, color = total_pitches)) +
+  geom_point(stat = 'identity') +
+  xlab('Velocity (mph)') +
+  ylab('Spin Rate (rpm)') +
+  ggtitle('Spin Rate VS Velocity Prior to June 1st')
+
+p1 <-
+  ggMarginal(b4gr, type = 'histogram')
+p1
+```
+
