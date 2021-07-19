@@ -109,8 +109,14 @@ aftabv
 babvgr <-
   b4abv %>%
   ggplot(aes(x = velocity, y = spin_rate, color = total_pitches)) +
-  geom_point(stat = 'identity')
-babvgr
+  geom_point(stat = 'identity') +
+  xlab('Velocity (mph)') +
+  ylab('Spin Rate (rpm)') +
+  labs(color = 'Total Pitches',
+       title = 'Spin Rate vs Velocity After June 1st',
+       caption = 'For pitchers with over 250 pitches') +
+  scale_color_viridis_c()
+
 ```
 
 
@@ -118,8 +124,16 @@ babvgr
 afabvgr <-
   aftabv %>%
   ggplot(aes(x = velocity, y = spin_rate, color = total_pitches)) +
-  geom_point(stat = 'identity')
+  geom_point(stat = 'identity') +
+  xlab('Velocity (mph)') +
+  ylab('Spin Rate (rpm)') +
+  labs(color = 'Total Pitches',
+       title = 'Spin Rate vs Velocity After June 1st',
+       caption = 'For pitchers with over 250 pitches') +
+  scale_color_viridis_c()
+
 afabvgr
+babvgr
 ```
 
 
