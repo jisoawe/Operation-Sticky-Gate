@@ -207,7 +207,56 @@ tb28gr
 
 #### Gerrit Cole
 
+```{r}
+gcoledt <-
+  read.csv('Gerrit Cole advanced stats.csv')
+gcoledt
+```
 
+
+```{r}
+gcju3 <-
+  gcoledt %>%
+  filter(game_date == '2021-06-03')
+gcju3
+```
+
+
+```{r}
+gcjl10 <-
+  gcoledt %>%
+  filter(game_date == '2021-07-10')
+gcjl10
+```
+
+
+```{r}
+gcju3gr <-
+  gcju3 %>%
+  ggplot(aes(x = at_bat_number, y = release_spin_rate, color = pitch_name)) +
+  geom_line(stat = 'identity') +
+  xlab('At Bat Number') +
+  ylab('Release Spin Rate') +
+  labs(title = "Gerrit Cole's Spin Rate by Pitch",
+       caption = 'From the game pitched on June 3rd',
+       color = 'Pitch Type')
+gcju3gr
+```
+
+
+```{r}
+gcjl10gr <-
+  gcjl10 %>%
+  ggplot(aes(x = at_bat_number, y = release_spin_rate, color = pitch_name)) +
+  geom_line(stat = 'identity') +
+  xlab('Number At Bat') +
+  ylab('Release Spin Rate') +
+  labs(title = "Gerrit Cole's Spin Rate by Pitch Type",
+       caption = 'From the game Cole pitched on July 10th',
+       color = 'Pitch Type')
+gcjl10gr
+gcju3gr
+```
 
 
 #### Julio Urias
