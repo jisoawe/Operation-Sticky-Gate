@@ -197,7 +197,7 @@ tb6gr <-
   ylab('Release Spin Rate') +
   labs(title = "Trevor Bauer's Spin Rate by Pitch Type",
        color = 'Pitch Name',
-       caption = 'From his last game on June 6th')
+       caption = 'From game pitched on June 6th')
 tb6gr
 tb28gr
 ```
