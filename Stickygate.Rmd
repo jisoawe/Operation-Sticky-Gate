@@ -158,7 +158,49 @@ bauer
 ```
 
 
+```{r}
+tbju28 <-
+  bauer %>%
+  filter(game_date == '2021-06-28')
+tbju28
+```
 
+
+
+```{r}
+tb28gr <-
+  tbju28%>%
+  ggplot(aes(x = at_bat_number , y = release_spin_rate, color = pitch_name)) +
+  geom_line(stat = 'identity')+
+  xlab('At Bat Number') +
+  ylab('Release Spin Rate') +
+  labs(title = "Trevor Bauer's Spin Rate by Pitch Type",
+       color = 'Pitch Name',
+       caption = 'From his last game on June 28th')
+tb28gr
+```
+
+
+```{r}
+tbju6 <-
+  bauer %>%
+  filter(game_date == '2021-06-06')
+tbju6
+```
+
+```{r}
+tb6gr <-
+  tbju6%>%
+  ggplot(aes(x = at_bat_number , y = release_spin_rate, color = pitch_name)) +
+  geom_line(stat = 'identity')+
+  xlab('At Bat Number') +
+  ylab('Release Spin Rate') +
+  labs(title = "Trevor Bauer's Spin Rate by Pitch Type",
+       color = 'Pitch Name',
+       caption = 'From his last game on June 6th')
+tb6gr
+tb28gr
+```
 
 
 #### Jacob deGrom
