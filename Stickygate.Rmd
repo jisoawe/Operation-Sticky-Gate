@@ -7,8 +7,9 @@ output: html_notebook
 # What is Operation Sticky Gate?
 
 Major League Baseball's 2021 season has been marked by record breaking statistics. Particularly the record low ERA's, extremely high spin rates, and a record breaking amount of no-hitters a few months into the season. Baseball is a game many consider boring from lack of action...
--avg spin rate prior to June 1st was around 2300
+-avg spin rate prior to June 1st was around 2280
 -mention the og steroid era
+-data from start of season to June 1, and June 1 to July 17, from Baseball Savant.
 
 # Before the Crackdown
 
@@ -22,6 +23,7 @@ The data referenced has been provided by Baseball Savant and Baseball Reference.
 
 ## Velocity vs Spin Rate
 
+It's important to note that generally as increases velocity so does spin rate. In this section we will be comparing pitchers spin rates vs velocities before and after June 1st.
 
 ```{r}
 library(ggplot2) ## loading packages
@@ -84,10 +86,40 @@ p1
 ```
 
 
+Based on these general scatterplots there doesn't seem to be a large change between between spin rate and velocity. The boxplots on the side show that...
+-most of the outliers are darker shaded dots showing that those pitchers generally haven't thrown as many pitches.
+-Now let's change the range in the number of pitches to above 325....
+
+
 ```{r}
-ggplot()+
-  geom_point(data = b4, aes()) +
-  geom_point(data = aft, aes())
+b4abv <-
+  b4%>%
+  filter(total_pitches > 249)
+b4abv
+```
+
+```{r}
+aftabv <-
+  aft%>%
+  filter(total_pitches > 249)
+aftabv
+```
+
+```{r}
+babvgr <-
+  b4abv %>%
+  ggplot(aes(x = velocity, y = spin_rate, color = total_pitches)) +
+  geom_point(stat = 'identity')
+babvgr
+```
+
+
+```{r}
+afabvgr <-
+  aftabv %>%
+  ggplot(aes(x = velocity, y = spin_rate, color = total_pitches)) +
+  geom_point(stat = 'identity')
+afabvgr
 ```
 
 
