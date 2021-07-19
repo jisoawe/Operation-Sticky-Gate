@@ -6,9 +6,13 @@ output: html_notebook
 
 # What is Operation Sticky Gate?
 
-Major League Baseball's 2021 season has been marked by record breaking statistics. Particularly the record low ERA's and extremely high spin rates.
+Major League Baseball's 2021 season has been marked by record breaking statistics. Particularly the record low ERA's, extremely high spin rates, and a record breaking amount of no-hitters a few months into the season. Baseball is a game many consider boring from lack of action...
+-avg spin rate prior to June 1st was around 2300
+-mention the og steroid era
 
-## Before the Crackdown
+# Before the Crackdown
+
+For a long time MLB teams had what some would call a gentleman's agreement over utilizing foreign substances. Initially this started as a way for pitchers to better their grip on the ball when they pitched. Yet, now it's gotten to the point that the foreign substances are so sticky that instead of just helping the pitchers grip the ball, it's making the ball stick to their hand for longer, thus increasing the spin rate of the ball and making it harder to hit. As the spin of the ball increases the general location in which the ball is getting thrown is higher, adding to the difficulties hitters are facing. The MLB made a decision coming out against foreign substances by stating that players caught using foreign substances will be removed from the game, placed on a 10 game suspension, and fined. Many people have argued that these statements won't deter pitchers from utilizing foreign substances. Recently we've seen spin rates going down and batting  averages going up. 
 
 
 ## Velocity vs Spin Rate
@@ -38,10 +42,46 @@ b4gr <-
   geom_point(stat = 'identity') +
   xlab('Velocity (mph)') +
   ylab('Spin Rate (rpm)') +
-  ggtitle('Spin Rate VS Velocity Prior to June 1st')
+  ggtitle('Spin Rate VS Velocity Prior to June 1st') +
+  labs(color = 'Total Pitches')
 
 p1 <-
-  ggMarginal(b4gr, type = 'histogram')
+  ggMarginal(b4gr, type = 'boxplot')
 p1
+```
+
+ * insert analysis *
+ 
+ 
+ 
+ 
+```{r}
+aft <-
+  read.csv('aftJune1st.csv')
+aft
+```
+
+
+```{r}
+aftgr <-
+  aft %>%
+  ggplot(aes(x = velocity, y = spin_rate, color = total_pitches)) +
+  geom_point(stat = 'identity') +
+  xlab('Velocity (mph)') +
+  ylab('Spin Rate (rpm)') +
+  ggtitle('Spin Rate VS Velocity After June 1st') +
+  labs(color = 'Total Pitches')
+
+p2 <-
+  ggMarginal(aftgr, type = 'boxplot')
+p2
+p1
+```
+
+
+```{r}
+ggplot()+
+  geom_point(data = b4, aes()) +
+  geom_point(data = aft, aes())
 ```
 
