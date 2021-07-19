@@ -10,6 +10,7 @@ Major League Baseball's 2021 season has been marked by record breaking statistic
 -avg spin rate prior to June 1st was around 2280
 -mention the og steroid era
 -data from start of season to June 1, and June 1 to July 17, from Baseball Savant.
+-sinkers and curveballs
 
 # Before the Crackdown
 
@@ -53,7 +54,7 @@ b4gr <-
   labs(color = 'Total Pitches')
 
 p1 <-
-  ggMarginal(b4gr, type = 'boxplot')
+  ggMarginal(b4gr, type = 'histogram')
 p1
 ```
 
@@ -80,7 +81,7 @@ aftgr <-
   labs(color = 'Total Pitches')
 
 p2 <-
-  ggMarginal(aftgr, type = 'boxplot')
+  ggMarginal(aftgr, type = 'histogram')
 p2
 p1
 ```
@@ -113,7 +114,7 @@ babvgr <-
   xlab('Velocity (mph)') +
   ylab('Spin Rate (rpm)') +
   labs(color = 'Total Pitches',
-       title = 'Spin Rate vs Velocity After June 1st',
+       title = 'Spin Rate vs Velocity Before June 1st',
        caption = 'For pitchers with over 250 pitches') +
   scale_color_viridis_c()
 
@@ -132,17 +133,33 @@ afabvgr <-
        caption = 'For pitchers with over 250 pitches') +
   scale_color_viridis_c()
 
-afabvgr
-babvgr
+k1 <- 
+  ggMarginal(afabvgr, type = 'histogram')
+k1
+
+g1 <-
+  ggMarginal(babvgr, type = 'histogram')
+g1
 ```
 
+Here we can see that...
 
 
 ## Individual Pitcher Changes
 
 #### Trevor Bauer
 
-It's hard to have any conversation about foreign substances in baseball without mentioning Trevor Bauer. From being someone who initially 
+It's hard to have any conversation about foreign substances in baseball without mentioning Trevor Bauer. From being someone who initially spoken against foreign substances, once even stating that they could be more powerful than steroids, to now being accused of having the most effective substance combination in the game, Bauer's name has been brought up a lot.
+
+```{r}
+bauer <-
+  read.csv('bauer advanced stats.csv')
+bauer
+```
+
+
+
+
 
 #### Jacob deGrom
 
