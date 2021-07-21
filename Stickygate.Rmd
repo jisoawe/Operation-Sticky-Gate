@@ -193,6 +193,7 @@ tb6gr <-
   tbju6%>%
   ggplot(aes(x = at_bat_number , y = release_spin_rate, color = pitch_name)) +
   geom_line(stat = 'identity')+
+  #geom_smooth()+
   xlab('At Bat Number') +
   ylab('Release Spin Rate') +
   labs(title = "Trevor Bauer's Spin Rate by Pitch Type",
@@ -201,6 +202,26 @@ tb6gr <-
 tb6gr
 tb28gr
 ```
+
+
+```{r}
+## pitch spin rt vs velocity
+tbsvvg <-
+  tbju6%>%
+  ggplot(aes(x = release_speed, y = release_spin_rate, color = pitch_name)) +
+  geom_point(sstat = 'identity')
+tbsvvg
+
+tbs2 <-
+  tbju28%>%
+  ggplot(aes(x = release_speed, y = release_spin_rate, color = pitch_name)) +
+  geom_point(sstat = 'identity')
+tbs2
+```
+
+
+
+
 
 
 #### Jacob deGrom
@@ -263,7 +284,42 @@ gcju3gr
 
 #### Garrett Richards
 ```{r}
-
+grichdt <-
+  read.csv('Garrett Richards advanced stats.csv')
+grichdt
 ```
+
+
+```{r}
+grjul9 <-
+  grichdt %>%
+  filter(game_date == '2021-07-09')
+grjul9
+```
+
+
+```{r}
+grjul9gr <-
+  grjul9 %>%
+  ggplot(aes(x = pitch_number, y = release_spin_rate, color = pitch_name)) +
+  geom_line(stat = 'identity') +
+  geom_point() +
+  #geom_smooth() +
+  xlab('At Bat Number') +
+  ylab('Release Spin Rate') +
+  labs(title = 'Gerritt Richards Spin Rate by Pitch',
+       caption = 'For game pitched on July 7th',
+       color = 'Pitch Type')
+grjul9gr
+```
+
+
+
+
+
+
+
+
+
 
 
