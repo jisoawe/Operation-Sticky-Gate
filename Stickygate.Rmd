@@ -53,6 +53,7 @@ b4gr <-
   ggtitle('Spin Rate VS Velocity Prior to June 1st') +
   labs(color = 'Total Pitches')
 
+##using ggExtra package to add histograms to show the distribution of data within the scatterplot
 p1 <-
   ggMarginal(b4gr, type = 'histogram')
 p1
@@ -79,13 +80,13 @@ aftgr <-
   ggtitle('Spin Rate VS Velocity After June 1st') +
   labs(color = 'Total Pitches')
 
-p2 <-
+p2 <-  
   ggMarginal(aftgr, type = 'histogram')
 p2
 p1
 ```
 
-Based on this graph of the data following June 1st, there doesn't seem to be much a difference. With velocities concentrated between the upper 80's and lower 90's and spin rates between 2000 rpm and 2500 rpm. Upon further inspection of the scatterplot it appears that most of the outliers are darker shaded dots representing pitcher who've thrown between 1 and 250 pitches. Because this data is based on averages and smaller sample sizes are generally less representative of the individual. This prompted me to see if there was a difference when if I increased the minimum number of pitches to above 250.
+Based on this graph of the data following June 1st, there doesn't seem to be much a difference. With velocities concentrated between the upper 80's and lower 90's and spin rates between 2000 rpm and 2500 rpm. Upon further inspection of the scatterplot it appears that most of the outliers are darker shaded dots representing pitcher who've thrown between 1 and 250 pitches. Because this data is based on averages and smaller sample sizes are generally less representative of the individual. This prompted me to see if there was a difference when if I increased the minimum number of pitches to at least 250.
 
 
 ```{r}
@@ -138,7 +139,8 @@ g1 <-
 g1
 ```
 
-Here we can see that...
+Here we can see a more notable difference between average spin rates and velocities. Prior to June 1st we can see that average velocities were generally between the upper 80s and mid 90s, with spin rates ranging between 2100 and 2600 rpm. The extremes included 5 pitchers with spin rates above 2750 rpm and 20 pitchers above 95 mph. 
+In contrast we can see that after June 1st, velocities are concentrated between the mid 80s to lower 90's and spin rates between 2000 and 2500 rpm. The extremes here now only include 1 pitcher with an average spin rate above 2750 and 3 pitchers above 95 mph. Additionally the frequency distribution of the velocities changed from left skew to a normal distribution. Whereas the frequency distribution of the spin rates went from bi-modal to a normal distribution following June 1st.
 
 
 ## Individual Pitcher Changes
