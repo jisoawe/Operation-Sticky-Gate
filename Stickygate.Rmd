@@ -143,17 +143,31 @@ Here we can see a more notable difference between average spin rates and velocit
 In contrast we can see that after June 1st, velocities are concentrated between the mid 80s to lower 90's and spin rates between 2000 and 2500 rpm. The extremes here now only include 1 pitcher with an average spin rate above 2750 and 3 pitchers above 95 mph. Additionally the frequency distribution of the velocities changed from left skew to a normal distribution. Whereas the frequency distribution of the spin rates went from bi-modal to a normal distribution following June 1st.
 
 
-## Individual Pitcher Changes
+# Individual Pitcher Changes
+
+In this section we will be examining a change in performance (if any) between specific pitchers, including Trevor Bauer, Gerrit Cole, and Garrett Richards.
 
 #### Trevor Bauer
 
-It's hard to have any conversation about foreign substances in baseball without mentioning Trevor Bauer. From being someone who initially spoken against foreign substances, once even stating that they could be more powerful than steroids, to now being accused of having the most effective substance combination in the game, Bauer's name has been brought up a lot.
+It's hard to have any conversation about foreign substances in baseball without mentioning Trevor Bauer. From being someone who initially spoken against foreign substances and once even stating that they could be more powerful than steroids, to now being accused of having the most effective sticky substance combination in the league, Bauer's name has been brought up a lot. Considering recent events regarding Bauer's arrest and allegation, the data available is more limited than with other players.
 
 ```{r}
-bauer <-
+bauer <- ## downloaded from Baseball Savant
   read.csv('bauer advanced stats.csv')
 bauer
 ```
+
+
+```{r}
+num <-
+  bauer %>%
+  group_by(pitch_name) %>%
+  summarise(count = n())
+num
+```
+
+
+From this data we can see that Bauer's most utilized pitches are fastballs, cutters, and sliders.
 
 
 ```{r}
@@ -162,6 +176,38 @@ tbju28 <-
   filter(game_date == '2021-06-28')
 tbju28
 ```
+
+```{r}
+tb2avgs <-
+  tbju28 %>%
+  select(pitch_name, release_speed, release_spin_rate) %>%
+  group_by(pitch_name) %>%
+  mutate(avgspeed = mean(release_speed, na.rm = TRUE)) %>%
+  mutate(avgspin = mean(release_spin_rate, na.rm = TRUE)) %>%
+  arrange(pitch_name)
+tb2avgs
+```
+
+
+
+
+```{r}
+ju28avg <-
+  tbju28%>%
+  group_by(pitch_name) %>%
+  summarise(avgspeed = mean(release_speed, na.rm = TRUE))
+ju28avg
+```
+
+
+```{r}
+ju28avggr <-
+  ju28avg%>%
+  ggplot(aes(x = pitch_name, y = avgspeed)) +
+  geom_bar(stat = 'identity')
+ju28avggr
+```
+
 
 
 
