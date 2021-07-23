@@ -18,7 +18,7 @@ For a long time MLB teams had what some would call a gentleman's agreement over 
 
 The MLB made a decision coming out against foreign substances by stating that starting on June 1st umpires will begin checking for pitchers using foreign substances and on June 16th announced players caught using them will be removed from the game, placed on a 10 game suspension, and fined. Many people have argued that these statements won't deter pitchers from utilizing foreign substances. Yet many analysts have been saying spin rates going down and batting  averages going up. In this notebook we will be examining the affect of the MLB's new implementation and examining changes with individual players.
 
-The data referenced has been provided by Baseball Savant found through utilizing the search feature.
+All the data included has been provided by Baseball Savant found through utilizing the search feature.
 
 
 
@@ -178,31 +178,24 @@ tbju28
 ```
 
 ```{r}
-tb2avgs <-
+tb2avgs <- ## finding game averages from the June 28th game
   tbju28 %>%
   select(pitch_name, release_speed, release_spin_rate) %>%
   group_by(pitch_name) %>%
   summarise(avgspeed = mean(release_speed, na.rm = TRUE), avgspin = mean(release_spin_rate, na.rm = TRUE)) %>%
-  #mutate(avgspin = mean(release_spin_rate, na.rm = TRUE)) %>%
   arrange(pitch_name)
 tb2avgs
 ```
 
-
-
-```{r}
-avg28gr <-
-  tb2avgs%>%
-  ggplot(aes(x = pitch_name, y = avgspin)) +
-  geom_density()
-ju28avggr
-```
-
+From this we can see that Bauer's fastest average pitches are his sinker, fastball, and changeup. His pitches with the highest spin rates are the knuckle curve, slider, cutter, and fastball, all with spin rates all well above the average spin rate of 2280 rpm. And his most utilized pitches: 
+* fastball (high velocity & spin rate)
+* cutter (medium velocity & high spin rate)
+* slider (low velocity & high spin rate)
 
 
 
 ```{r}
-tb28gr <-
+tb28gr <-  ## graph depicting Bauer's spin rates by pitch
   tbju28%>%
   ggplot(aes(x = at_bat_number , y = release_spin_rate, color = pitch_name)) +
   geom_line(stat = 'identity')+
