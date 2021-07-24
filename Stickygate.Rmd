@@ -26,11 +26,14 @@ All the data included has been provided by Baseball Savant found through utilizi
 
 It's important to note that generally as increases velocity so does spin rate. In this section we will be comparing pitchers spin rates vs velocities before and after June 1st.
 
+
+
 ```{r}
 library(ggplot2) ## loading packages
 library(ggExtra)
 library(dplyr)
 library(tidyverse)
+library(plotly)
 ```
 
 
@@ -263,7 +266,7 @@ tb28gr
 ```
 
 
-Here we can see the drastic drop in Bauer's spin rate between the two games only 22 days apart. During Bauer's June 6th game, before the League started implementing the 10-day suspension rule, it can be seen that he has several pitches being thrown at above 3000 rpm and with the exception of his changeup's all of his pitches are rotating above 2500 rpm. Yet, by June 28th, Bauer didn't have a single pitch with a spin rate above 3000 rpm. In addition to this, Bauer's [ERA](https://github.com/jisoawe/MLB-Data-Visualizations/blob/main/ERA%20Explained.Rmd) during the two games went from 2.40 to 2.59, meaning he allowed an about of 12.667 more runs during the innings he pitched. When seeing such large drops in spin rates, it can be speculated that the pitcher was utilizing sticky substances.
+Here we can see the drastic drop in Bauer's spin rate between the two games only 22 days apart. During Bauer's June 6th game, before the League started implementing the 10-day suspension rule, it can be seen that he has several pitches being thrown at above 3000 rpm and with the exception of his changeup's all of his pitches are rotating above 2500 rpm. Yet, by June 28th, Bauer didn't have a single pitch with a spin rate above 3000 rpm. In addition to this, Bauer's [ERA](https://github.com/jisoawe/MLB-Data-Visualizations/blob/main/ERA%20Explained.Rmd) during the two games went from 2.40 to 2.59, meaning he was allowing significantly more runs per inning after implementation. When seeing such large drops in spin rates, it can be speculated that the pitcher was utilizing sticky substances.
 
 #### Bauer's Sticky Verdict: GUILTY
 
@@ -321,6 +324,9 @@ Cole's most utilized pitches during this game:
 * Changeup (high velocity & low spin rate)
 
 
+note: Cole's ERA during from this game was 2.26 [Baseball Reference](https://www.baseball-reference.com/boxes/NYA/NYA202106030.shtml)
+
+
 ```{r}
 gcjl17 <-
   gcoledt %>%
@@ -350,7 +356,7 @@ Cole's most utilized pitches during this game:
 * Knuckle Curve (medium velocity & high spin rate)
 * Slider (medium velocity & high spin rate)
 
-
+note: Cole's ERA during from this game was 2.63 [Baseball Reference](https://www.baseball-reference.com/boxes/NYA/NYA202107170.shtml)
 
 
 ```{r}
@@ -362,7 +368,12 @@ gcju3gr <-
   ylab('Release Spin Rate') +
   labs(title = "Gerrit Cole's Spin Rate by Pitch",
        caption = 'From the game pitched on June 3rd',
-       color = 'Pitch Type')
+       color = 'Pitch Type')+
+  scale_color_manual(values = c('4-Seam Fastball' = 'chocolate1',
+                                'Changeup' = 'darkgoldenrod1',
+                                'Knuckle Curve' = 'darkseagreen3',
+                                'Sinker' = 'darkorchid1',
+                                'Slider' = 'deepskyblue'))
 gcju3gr
 
 
@@ -374,17 +385,23 @@ gcjl17gr <-
   ylab('Release Spin Rate') +
   labs(title = "Gerrit Cole's Spin Rate by Pitch Type",
        caption = 'From the game Cole pitched on July 17th',
-       color = 'Pitch Type')
+       color = 'Pitch Type') +
+  scale_color_manual(values = c('4-Seam Fastball' = 'chocolate1',
+                                'Changeup' = 'darkgoldenrod1',
+                                'Knuckle Curve' = 'darkseagreen3',
+                                'Slider' = 'deepskyblue'))
 gcjl17gr
 ```
 
+When comparing the two graphs the change in Cole's spin rates isn't as drastic as Bauer's. His changeup, fastball, and slider remained relatively similar to what they were during his starts from his games prior to implementation. Additionally, the spin on his curveball increased, nearly reaching 3000 rpm during at bat number 40. His average release velocities also stayed relatively similar. Although his ERA did go up by 0.4, which is a high increase to incur within a month and a half.
 
-#### Cole's Sticky Verdict: [insert]
 
+#### Cole's Sticky Verdict: uh well... (probably) NOT GUILTY
 
-## Julio Urias
 
 ## Garrett Richards
+
+
 ```{r}
 grichdt <-  ## Garrett Richards data from Baseball Savant
   read.csv('Garrett Richards advanced stats.csv')
