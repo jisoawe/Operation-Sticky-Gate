@@ -18,7 +18,7 @@ For a long time MLB teams had what some would call a gentleman's agreement over 
 
 The MLB made a decision coming out against foreign substances by stating that starting on June 1st umpires will begin checking for pitchers using foreign substances and on June 16th announced players caught using them will be removed from the game, placed on a 10 game suspension, and fined. Many people have argued that these statements won't deter pitchers from utilizing foreign substances. Yet many analysts have been saying spin rates going down and batting  averages going up. In this notebook we will be examining the affect of the MLB's new implementation and examining changes with individual players.
 
-All the data included has been provided by Baseball Savant found through utilizing the search feature.
+All the data included has been provided by Baseball Savant found through utilizing the search feature and Baseball Reference (linked when referenced).
 
 
 
@@ -42,6 +42,13 @@ b4
 ```
 
 
+ 
+```{r}
+aft <-
+  read.csv('aftJune1st.csv')
+aft
+```
+
 
 ```{r}
 b4gr <-
@@ -57,20 +64,8 @@ b4gr <-
 p1 <-
   ggMarginal(b4gr, type = 'histogram')
 p1
-```
-
-This data shows that generally pitchers average spin rates are concentrated between 2200 rpm and 2600 rpm and the velocities range from the upper 80s to mid 90s. 
- 
-
- 
-```{r}
-aft <-
-  read.csv('aftJune1st.csv')
-aft
-```
 
 
-```{r}
 aftgr <-
   aft %>%
   ggplot(aes(x = velocity, y = spin_rate, color = total_pitches)) +
@@ -83,10 +78,15 @@ aftgr <-
 p2 <-  
   ggMarginal(aftgr, type = 'histogram')
 p2
-p1
 ```
 
-Based on this graph of the data following June 1st, there doesn't seem to be much a difference. With velocities concentrated between the upper 80's and lower 90's and spin rates between 2000 rpm and 2500 rpm. Upon further inspection of the scatterplot it appears that most of the outliers are darker shaded dots representing pitcher who've thrown between 1 and 250 pitches. Because this data is based on averages and smaller sample sizes are generally less representative of the individual. This prompted me to see if there was a difference when if I increased the minimum number of pitches to at least 250.
+
+
+The graph of the data before June 1st shows that generally pitchers average spin rates are concentrated between 2200 rpm and 2600 rpm and the velocities range from the upper 80s to mid 90s. 
+
+The graph of the data following June 1st, displays a higher conglomeration of pitchers with average pitches between 2000 and 2500 rpm and less outliers with spin rates above 2750 rpm. With velocities concentrated between the upper 80's and lower 90's and spin rates between 2000 rpm and 2500 rpm.
+
+Upon further inspection of the scatterplot it appears that most of the outliers are darker shaded dots representing pitcher who've thrown between 1 and 250 pitches. Because this data is based on averages and smaller sample sizes are generally less representative of the individual. This prompted me to see if there was a difference when if I increased the minimum number of pitches to at least 250.
 
 
 ```{r}
@@ -103,6 +103,9 @@ aftabv <-
 aftabv
 ```
 
+
+
+
 ```{r}
 babvgr <-
   b4abv %>%
@@ -114,11 +117,11 @@ babvgr <-
        title = 'Spin Rate vs Velocity Before June 1st',
        caption = 'For pitchers with over 250 pitches') +
   scale_color_viridis_c()
+g1 <-
+  ggMarginal(babvgr, type = 'histogram')
+g1
 
-```
 
-
-```{r}
 afabvgr <-
   aftabv %>%
   ggplot(aes(x = velocity, y = spin_rate, color = total_pitches)) +
@@ -134,9 +137,6 @@ k1 <-
   ggMarginal(afabvgr, type = 'histogram')
 k1
 
-g1 <-
-  ggMarginal(babvgr, type = 'histogram')
-g1
 ```
 
 Here we can see a more notable difference between average spin rates and velocities. Prior to June 1st we can see that average velocities were generally between the upper 80s and mid 90s, with spin rates ranging between 2100 and 2600 rpm. The extremes included 5 pitchers with spin rates above 2750 rpm and 20 pitchers above 95 mph. 
@@ -145,7 +145,7 @@ In contrast we can see that after June 1st, velocities are concentrated between 
 
 # Individual Pitcher Changes
 
-In this section we will be examining a change in performance (if any) between specific pitchers, including Trevor Bauer, Gerrit Cole, and Garrett Richards.
+In this section we will be examining a change in spin rate, velocity, and overall performance (if any) between specific pitchers: Trevor Bauer, Gerrit Cole, and Garrett Richards.
 
 ## Trevor Bauer
 
@@ -203,7 +203,7 @@ Bauer's most utilized pitches this game:
 * Fastball (high velocity & spin rate)
 
 
-
+note: Bauer's ERA during this game was 2.59 [Baseball Reference](https://www.baseball-reference.com/boxes/LAN/LAN202106280.shtml)
 
 #### June 6th
 
@@ -228,11 +228,14 @@ tb6avgs
 Here we can see that from Bauer's June 6th game, the pitches with the highest speed were the fastball, sinker, and changeup. And his pitches with the highest spin rates were the knuckle curveball, slider, cutter, sinker, and fastball, all significantly above league average of 2280 rpm.
 
 
-Bauer's most utilized pitches:
+Bauer's most utilized pitches during this game:
 
 * Fastball (high velocity & high spin rate)
 * Cutter (medium velocity & high spin rate)
 * Slider (low velocity & high spin rate)
+
+
+note: Bauer's ERA during from this game was 2.40 [Baseball Reference](https://www.baseball-reference.com/boxes/ATL/ATL202106060.shtml)
 
 ```{r}
 tb6gr <-    ## depicting Bauer's spin rates by pitch from June 6th
@@ -260,24 +263,9 @@ tb28gr
 ```
 
 
-```{r}
-## pitch spin rt vs velocity
-tbsvvg <-
-  tbju6%>%
-  ggplot(aes(x = release_speed, y = release_spin_rate, color = pitch_name)) +
-  geom_point(sstat = 'identity')
-tbsvvg
+Here we can see the drastic drop in Bauer's spin rate between the two games only 22 days apart. During Bauer's June 6th game, before the League started implementing the 10-day suspension rule, it can be seen that he has several pitches being thrown at above 3000 rpm and with the exception of his changeup's all of his pitches are rotating above 2500 rpm. Yet, by June 28th, Bauer didn't have a single pitch with a spin rate above 3000 rpm. In addition to this, Bauer's [ERA](https://github.com/jisoawe/MLB-Data-Visualizations/blob/main/ERA%20Explained.Rmd) during the two games went from 2.40 to 2.59, meaning he allowed an about of 12.667 more runs during the innings he pitched. When seeing such large drops in spin rates, it can be speculated that the pitcher was utilizing sticky substances.
 
-tbs2 <-
-  tbju28%>%
-  ggplot(aes(x = release_speed, y = release_spin_rate, color = pitch_name)) +
-  geom_point(sstat = 'identity')
-tbs2
-```
-
-
-
-
+#### Bauer's Sticky Verdict: GUILTY
 
 
 ## Jacob deGrom
@@ -336,6 +324,9 @@ gcju3gr
 ```
 
 
+#### Cole's Sticky Verdict: [insert]
+
+
 ## Julio Urias
 
 ## Garrett Richards
@@ -372,7 +363,7 @@ grjul9gr
 
 
 
-
+####  Richards' Sticky Verdict: [insert]
 
 
 
