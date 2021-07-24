@@ -147,7 +147,7 @@ In contrast we can see that after June 1st, velocities are concentrated between 
 
 In this section we will be examining a change in performance (if any) between specific pitchers, including Trevor Bauer, Gerrit Cole, and Garrett Richards.
 
-#### Trevor Bauer
+## Trevor Bauer
 
 It's hard to have any conversation about foreign substances in baseball without mentioning Trevor Bauer. From being someone who initially spoken against foreign substances and once even stating that they could be more powerful than steroids, to now being accused of having the most effective sticky substance combination in the league, Bauer's name has been brought up a lot. Considering recent events regarding Bauer's arrest and allegation, the data available is more limited than with other players.
 
@@ -159,7 +159,7 @@ bauer
 
 
 ```{r}
-num <-
+num <-  ## finding counts of each pitch type
   bauer %>%
   group_by(pitch_name) %>%
   summarise(count = n())
@@ -167,8 +167,11 @@ num
 ```
 
 
-From this data we can see that Bauer's most utilized pitches are fastballs, cutters, and sliders.
+From this data we can see that during the month of June, Bauer's most utilized pitches were the fastball, cutter, and slider.
 
+
+
+#### June 28th
 
 ```{r}
 tbju28 <-
@@ -182,31 +185,27 @@ tb2avgs <- ## finding game averages from the June 28th game
   tbju28 %>%
   select(pitch_name, release_speed, release_spin_rate) %>%
   group_by(pitch_name) %>%
-  summarise(avgspeed = mean(release_speed, na.rm = TRUE), avgspin = mean(release_spin_rate, na.rm = TRUE)) %>%
+  summarise(avgspeed = mean(release_speed, na.rm = TRUE), avgspin = mean(release_spin_rate, na.rm = TRUE), count = n()) %>%
   arrange(pitch_name)
 tb2avgs
 ```
 
-From this we can see that Bauer's fastest average pitches are his sinker, fastball, and changeup. His pitches with the highest spin rates are the knuckle curve, slider, cutter, and fastball, all with spin rates all well above the average spin rate of 2280 rpm. And his most utilized pitches: 
-* fastball (high velocity & spin rate)
-* cutter (medium velocity & high spin rate)
-* slider (low velocity & high spin rate)
+
+
+From this we can see that Bauer's fastest average pitches are his sinker, fastball, and changeup. His pitches with the highest spin rates are the knuckle curve, slider, cutter, and fastball, all with spin rates all well above the average spin rate of 2280 rpm.
+
+Bauer's most utilized pitches this game:
+
+* Cutter (medium velocity & high spin rate)
+
+* Slider (low velocity & high spin rate)
+
+* Fastball (high velocity & spin rate)
 
 
 
-```{r}
-tb28gr <-  ## graph depicting Bauer's spin rates by pitch
-  tbju28%>%
-  ggplot(aes(x = at_bat_number , y = release_spin_rate, color = pitch_name)) +
-  geom_line(stat = 'identity')+
-  xlab('At Bat Number') +
-  ylab('Release Spin Rate') +
-  labs(title = "Trevor Bauer's Spin Rate by Pitch Type",
-       color = 'Pitch Name',
-       caption = 'From his last game on June 28th')
-tb28gr
-```
 
+#### June 6th
 
 ```{r}
 tbju6 <-
@@ -215,18 +214,48 @@ tbju6 <-
 tbju6
 ```
 
+
 ```{r}
-tb6gr <-
+tb6avgs <-
+  tbju6%>%
+  select(pitch_name, release_speed, release_spin_rate) %>%
+  group_by(pitch_name) %>%
+  summarise(avgspeed = mean(release_speed, na.rm = TRUE), avgspin = mean(release_spin_rate, na.rm = TRUE), count = n()) %>%
+  arrange(pitch_name)
+tb6avgs
+```
+
+Here we can see that from Bauer's June 6th game, the pitches with the highest speed were the fastball, sinker, and changeup. And his pitches with the highest spin rates were the knuckle curveball, slider, cutter, sinker, and fastball, all significantly above league average of 2280 rpm.
+
+
+Bauer's most utilized pitches:
+
+* Fastball (high velocity & high spin rate)
+* Cutter (medium velocity & high spin rate)
+* Slider (low velocity & high spin rate)
+
+```{r}
+tb6gr <-    ## depicting Bauer's spin rates by pitch from June 6th
   tbju6%>%
   ggplot(aes(x = at_bat_number , y = release_spin_rate, color = pitch_name)) +
   geom_line(stat = 'identity')+
-  #geom_smooth()+
   xlab('At Bat Number') +
   ylab('Release Spin Rate') +
   labs(title = "Trevor Bauer's Spin Rate by Pitch Type",
        color = 'Pitch Name',
        caption = 'From game pitched on June 6th')
 tb6gr
+
+
+tb28gr <-  ## depicting Bauer's spin rates by pitch from June 28th
+  tbju28%>%
+  ggplot(aes(x = at_bat_number , y = release_spin_rate, color = pitch_name)) +
+  geom_line(stat = 'identity')+
+  xlab('At Bat Number') +
+  ylab('Release Spin Rate') +
+  labs(title = "Trevor Bauer's Spin Rate by Pitch Type",
+       color = 'Pitch Name',
+       caption = 'From his last game on June 28th')
 tb28gr
 ```
 
@@ -251,9 +280,9 @@ tbs2
 
 
 
-#### Jacob deGrom
+## Jacob deGrom
 
-#### Gerrit Cole
+## Gerrit Cole
 
 ```{r}
 gcoledt <-
@@ -307,18 +336,18 @@ gcju3gr
 ```
 
 
-#### Julio Urias
+## Julio Urias
 
-#### Garrett Richards
+## Garrett Richards
 ```{r}
-grichdt <-
+grichdt <-  ## Garrett Richards data from Baseball Savant
   read.csv('Garrett Richards advanced stats.csv')
 grichdt
 ```
 
 
 ```{r}
-grjul9 <-
+grjul9 <-  ## filtering the data from Garrett Richard's most recent game
   grichdt %>%
   filter(game_date == '2021-07-09')
 grjul9
