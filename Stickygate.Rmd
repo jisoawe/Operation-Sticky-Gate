@@ -268,9 +268,11 @@ Here we can see the drastic drop in Bauer's spin rate between the two games only
 #### Bauer's Sticky Verdict: GUILTY
 
 
-## Jacob deGrom
 
 ## Gerrit Cole
+
+After [this](https://twitter.com/mroberson22/status/1402377614086467586?s=20) infamous post game interview of Gerrit Cole, I can't not examine his stats and see if he was stuttering was an admission of guilt or if he was just tired.
+
 
 ```{r}
 gcoledt <-
@@ -278,9 +280,20 @@ gcoledt <-
 gcoledt
 ```
 
+```{r}
+gccounts <-
+  gcoledt %>%
+  group_by(pitch_name) %>%
+  summarise(count = n())
+gccounts
+```
+
+
+From this we can see that Cole's most utilized pitch by far is his fastball, followed by his slider, knuckle curve, and changeup. Whereas his sinker is rarely used, only making an appearance 8 times in almost 800 pitches tracked.
+
 
 ```{r}
-gcju3 <-
+gcju3 <-  ## data from Cole's June 3rd game
   gcoledt %>%
   filter(game_date == '2021-06-03')
 gcju3
@@ -288,11 +301,56 @@ gcju3
 
 
 ```{r}
-gcjl10 <-
-  gcoledt %>%
-  filter(game_date == '2021-07-10')
-gcjl10
+ju3avg <-
+  gcju3%>%
+  select(pitch_name, release_spin_rate, release_speed) %>%
+  group_by(pitch_name) %>%
+  summarise(avgspeed = mean(release_speed, na.rm = TRUE), avgspin = mean(release_spin_rate, na.rm = TRUE), count = n()) %>%
+  arrange(pitch_name)
+ju3avg
 ```
+
+
+We can see that from Cole's June 3rd game, the pitches with the highest speed were the fastball, sinker, changeup, and slider. And his pitches with the highest spin rates were the knuckle curve, slider, fastball, and sinker, with all being at least 100 rpm above the league average of 2280 rpm.
+
+
+Cole's most utilized pitches during this game:
+
+* Fastball (high velocity & high spin rate)
+* Knuckle Curve (medium velocity & high spin rate)
+* Changeup (high velocity & low spin rate)
+
+
+```{r}
+gcjl17 <-
+  gcoledt %>%
+  filter(game_date == '2021-07-17')
+gcjl17
+```
+
+
+
+```{r}
+jl17avg <-
+  gcjl17 %>%
+  group_by(pitch_name) %>%
+  select(pitch_name, release_spin_rate, release_speed) %>%
+  summarise(avgspin = mean(release_spin_rate, na.rm = TRUE), avgspeed = mean(release_speed, na.rm = TRUE), count = n()) %>%
+  arrange(pitch_name)
+jl17avg
+```
+
+
+Here we can see that from Cole's July 17th game, the pitches with the highest speed were the fastball, changeup, and slider. And his pitches with the highest spin rates were the knuckle curve, slider, and fastball, all still well the league average of 2280 rpm.
+
+
+Cole's most utilized pitches during this game:
+
+* Fastball (high velocity & medium spin rate)
+* Knuckle Curve (medium velocity & high spin rate)
+* Slider (medium velocity & high spin rate)
+
+
 
 
 ```{r}
@@ -306,21 +364,18 @@ gcju3gr <-
        caption = 'From the game pitched on June 3rd',
        color = 'Pitch Type')
 gcju3gr
-```
 
 
-```{r}
-gcjl10gr <-
-  gcjl10 %>%
+gcjl17gr <-
+  gcjl17 %>%
   ggplot(aes(x = at_bat_number, y = release_spin_rate, color = pitch_name)) +
   geom_line(stat = 'identity') +
   xlab('Number At Bat') +
   ylab('Release Spin Rate') +
   labs(title = "Gerrit Cole's Spin Rate by Pitch Type",
-       caption = 'From the game Cole pitched on July 10th',
+       caption = 'From the game Cole pitched on July 17th',
        color = 'Pitch Type')
-gcjl10gr
-gcju3gr
+gcjl17gr
 ```
 
 
