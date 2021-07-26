@@ -418,12 +418,43 @@ grjul9
 
 
 ```{r}
+jul19avgs <-
+  grjul9%>%
+  select(pitch_name, release_spin_rate, release_speed) %>%
+  group_by(pitch_name) %>%
+  summarise(avgspeed = mean(release_speed, na.rm = TRUE), avgspin = mean(release_spin_rate, na.rm = TRUE), count = n())
+jul19avgs
+```
+
+
+
+```{r}
+grmay8 <-  ## filtering the data from Richard's May 8th game
+  grichdt %>%
+  filter(game_date == '2021-05-08')
+grmay8
+```
+
+
+
+```{r}
+may8avgs <-
+  grmay8%>%
+  select(release_spin_rate, release_speed, pitch_name) %>%
+  group_by(pitch_name) %>%
+  summarise(avgspeed = mean(release_speed, na.rm = TRUE), avgspin = mean(release_spin_rate, na.rm = TRUE), count = n())
+may8avgs
+```
+
+
+
+
+```{r}
 grjul9gr <-
   grjul9 %>%
-  ggplot(aes(x = pitch_number, y = release_spin_rate, color = pitch_name)) +
+  ggplot(aes(x = at_bat_number, y = release_spin_rate, color = pitch_name)) +
   geom_line(stat = 'identity') +
-  geom_point() +
-  #geom_smooth() +
+  #geom_point() +
   xlab('At Bat Number') +
   ylab('Release Spin Rate') +
   labs(title = 'Gerritt Richards Spin Rate by Pitch',
@@ -435,7 +466,7 @@ grjul9gr
 
 
 
-####  Richards' Sticky Verdict: [insert]
+####  Richards' Sticky Verdict: 
 
 
 
