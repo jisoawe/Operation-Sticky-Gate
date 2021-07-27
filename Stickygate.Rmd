@@ -244,7 +244,7 @@ note: Bauer's ERA during from this game was 2.40 [Baseball Reference](https://ww
 tb6gr <-    ## depicting Bauer's spin rates by pitch from June 6th
   tbju6%>%
   ggplot(aes(x = at_bat_number , y = release_spin_rate, color = pitch_name)) +
-  geom_line(stat = 'identity')+
+  geom_point(stat = 'identity')+
   xlab('At Bat Number') +
   ylab('Release Spin Rate') +
   labs(title = "Trevor Bauer's Spin Rate by Pitch Type",
@@ -256,7 +256,7 @@ tb6gr
 tb28gr <-  ## depicting Bauer's spin rates by pitch from June 28th
   tbju28%>%
   ggplot(aes(x = at_bat_number , y = release_spin_rate, color = pitch_name)) +
-  geom_line(stat = 'identity')+
+  geom_point(stat = 'identity')+
   xlab('At Bat Number') +
   ylab('Release Spin Rate') +
   labs(title = "Trevor Bauer's Spin Rate by Pitch Type",
@@ -363,7 +363,7 @@ note: Cole's ERA during from this game was 2.63 [Baseball Reference](https://www
 gcju3gr <-
   gcju3 %>%
   ggplot(aes(x = at_bat_number, y = release_spin_rate, color = pitch_name)) +
-  geom_line(stat = 'identity') +
+  geom_point(stat = 'identity') +
   xlab('At Bat Number') +
   ylab('Release Spin Rate') +
   labs(title = "Gerrit Cole's Spin Rate by Pitch",
@@ -380,7 +380,7 @@ gcju3gr
 gcjl17gr <-
   gcjl17 %>%
   ggplot(aes(x = at_bat_number, y = release_spin_rate, color = pitch_name)) +
-  geom_line(stat = 'identity') +
+  geom_point(stat = 'identity') +
   xlab('Number At Bat') +
   ylab('Release Spin Rate') +
   labs(title = "Gerrit Cole's Spin Rate by Pitch Type",
@@ -453,8 +453,7 @@ may8avgs
 grjul9gr <-
   grjul9 %>%
   ggplot(aes(x = at_bat_number, y = release_spin_rate, color = pitch_name)) +
-  geom_line(stat = 'identity') +
-  #geom_point() +
+  geom_point() +
   xlab('At Bat Number') +
   ylab('Release Spin Rate') +
   labs(title = 'Gerritt Richards Spin Rate by Pitch',
@@ -466,7 +465,7 @@ grjul9gr
 
 
 
-####  Richards' Sticky Verdict: 
+####  Richards' Sticky Verdict: GUILTY
 
 
 
