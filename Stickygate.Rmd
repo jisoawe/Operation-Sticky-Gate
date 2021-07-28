@@ -139,7 +139,6 @@ afabvgr <-
 k1 <- 
   ggMarginal(afabvgr, type = 'histogram')
 k1
-
 ```
 
 Here we can see a more notable difference between average spin rates and velocities. Prior to June 1st we can see that average velocities were generally between the upper 80s and mid 90s, with spin rates ranging between 2100 and 2600 rpm. The extremes included 5 pitchers with spin rates above 2750 rpm and 20 pitchers above 95 mph. 
@@ -243,22 +242,21 @@ note: Bauer's ERA during from this game was 2.40 [Baseball Reference](https://ww
 ```{r}
 tb6gr <-    ## depicting Bauer's spin rates by pitch from June 6th
   tbju6%>%
-  ggplot(aes(x = at_bat_number , y = release_spin_rate, color = pitch_name)) +
+  ggplot(aes(x = release_speed , y = release_spin_rate, color = pitch_name)) +
   geom_point(stat = 'identity')+
-  xlab('At Bat Number') +
-  ylab('Release Spin Rate') +
+  xlab('Release Speed (mph)') +
+  ylab('Release Spin Rate (rpm)') +
   labs(title = "Trevor Bauer's Spin Rate by Pitch Type",
        color = 'Pitch Name',
        caption = 'From game pitched on June 6th')
 tb6gr
 
-
 tb28gr <-  ## depicting Bauer's spin rates by pitch from June 28th
   tbju28%>%
-  ggplot(aes(x = at_bat_number , y = release_spin_rate, color = pitch_name)) +
+  ggplot(aes(x = release_speed , y = release_spin_rate, color = pitch_name)) +
   geom_point(stat = 'identity')+
-  xlab('At Bat Number') +
-  ylab('Release Spin Rate') +
+  xlab('Release Speed (mph)') +
+  ylab('Release Spin Rate (rpm)') +
   labs(title = "Trevor Bauer's Spin Rate by Pitch Type",
        color = 'Pitch Name',
        caption = 'From his last game on June 28th')
@@ -293,6 +291,7 @@ gccounts
 
 
 From this we can see that Cole's most utilized pitch by far is his fastball, followed by his slider, knuckle curve, and changeup. Whereas his sinker is rarely used, only making an appearance 8 times in almost 800 pitches tracked.
+
 
 
 ```{r}
@@ -347,7 +346,7 @@ jl17avg
 ```
 
 
-Here we can see that from Cole's July 17th game, the pitches with the highest speed were the fastball, changeup, and slider. And his pitches with the highest spin rates were the knuckle curve, slider, and fastball, all still well the league average of 2280 rpm.
+Here we can see that from Cole's July 17th game, the pitches with the highest speed were the fastball, changeup, and slider. And his pitches with the highest spin rates were the knuckle curve, slider, and fastball, all still well above the league average of 2280 rpm.
 
 
 Cole's most utilized pitches during this game:
@@ -362,10 +361,10 @@ note: Cole's ERA during from this game was 2.63 [Baseball Reference](https://www
 ```{r}
 gcju3gr <-
   gcju3 %>%
-  ggplot(aes(x = at_bat_number, y = release_spin_rate, color = pitch_name)) +
+  ggplot(aes(x = release_speed, y = release_spin_rate, color = pitch_name)) +
   geom_point(stat = 'identity') +
-  xlab('At Bat Number') +
-  ylab('Release Spin Rate') +
+  xlab('Release Speed (mph)') +
+  ylab('Release Spin Rate (rpm)') +
   labs(title = "Gerrit Cole's Spin Rate by Pitch",
        caption = 'From the game pitched on June 3rd',
        color = 'Pitch Type')+
@@ -379,10 +378,10 @@ gcju3gr
 
 gcjl17gr <-
   gcjl17 %>%
-  ggplot(aes(x = at_bat_number, y = release_spin_rate, color = pitch_name)) +
+  ggplot(aes(x = release_speed, y = release_spin_rate, color = pitch_name)) +
   geom_point(stat = 'identity') +
-  xlab('Number At Bat') +
-  ylab('Release Spin Rate') +
+  xlab('Release Speed (mph)') +
+  ylab('Release Spin Rate (rpm)') +
   labs(title = "Gerrit Cole's Spin Rate by Pitch Type",
        caption = 'From the game Cole pitched on July 17th',
        color = 'Pitch Type') +
@@ -401,11 +400,21 @@ When comparing the two graphs the change in Cole's spin rates isn't as drastic a
 
 ## Garrett Richards
 
+Red Sox pitcher Garrett Richards...
 
 ```{r}
 grichdt <-  ## Garrett Richards data from Baseball Savant
   read.csv('Garrett Richards advanced stats.csv')
 grichdt
+```
+
+
+```{r}
+grcounts <-
+  grichdt %>%
+  group_by(pitch_name) %>%
+  summarise(count = n())
+grcounts
 ```
 
 
@@ -418,15 +427,24 @@ grjul9
 
 
 ```{r}
-jul19avgs <-
+jul9avgs <-
   grjul9%>%
   select(pitch_name, release_spin_rate, release_speed) %>%
   group_by(pitch_name) %>%
   summarise(avgspeed = mean(release_speed, na.rm = TRUE), avgspin = mean(release_spin_rate, na.rm = TRUE), count = n())
-jul19avgs
+jul9avgs
 ```
 
+Here we can see that from Richards' July 9th game, the pitches with the highest speeds were the fastball and changeup. And his pitches with the highest spin rates were the curveball, slider, and fastball, all above the league average of 2280 rpm.
 
+
+Richards' most utilized pitches during this game:
+
+* Fastball (high velocity & medium spin rate)
+* Curveball (low velocity & high spin rate)
+* Slider (medium velocity & high spin rate)
+
+note: Richards' ERA during from this game was 4.91 [Baseball Reference](https://www.baseball-reference.com/boxes/BOS/BOS202107090.shtml)
 
 ```{r}
 grmay8 <-  ## filtering the data from Richard's May 8th game
@@ -434,7 +452,6 @@ grmay8 <-  ## filtering the data from Richard's May 8th game
   filter(game_date == '2021-05-08')
 grmay8
 ```
-
 
 
 ```{r}
@@ -446,19 +463,45 @@ may8avgs <-
 may8avgs
 ```
 
+During Richards' May 8th game, it can seen he only utilized three different types of pitches. The two with the highest speeds were the fastball and slider. The two pitch types with the highest spin rates were the curveball and slider. Note all of his average spin rates from this game which were significantly above the league average of 2280 rpm.
 
 
+Richards' most utilized pitches during this game:
+
+* Fastball (high velocity & high spin rate)
+* Slider (medium velocity & high spin rate)
+* Curveball (low velocity & high spin rate)
+
+note: Richards' ERA during from this game was 4.54 [Baseball Reference](https://www.baseball-reference.com/boxes/BAL/BAL202105080.shtml)
 
 ```{r}
+my8gr <-
+  grmay8%>%
+  ggplot(aes(x = release_speed, y = release_spin_rate, color = pitch_name))+
+  geom_point() +
+  xlab('Release Speed (mph)')+
+  ylab('Spin Rate (rpm)') +
+  labs(title = 'Gerritt Richards Spin Rate by Pitch',
+       color = 'Pitch Type',
+       caption = 'From game pitched on May 8th') +
+  scale_color_manual(values = c('4-Seam Fastball' = 'chocolate1',
+                                'Curveball' = 'cyan3',
+                                'Slider' = 'darkorchid2'))
+my8gr
+
 grjul9gr <-
   grjul9 %>%
-  ggplot(aes(x = at_bat_number, y = release_spin_rate, color = pitch_name)) +
+  ggplot(aes(x = release_speed, y = release_spin_rate, color = pitch_name)) +
   geom_point() +
   xlab('At Bat Number') +
   ylab('Release Spin Rate') +
   labs(title = 'Gerritt Richards Spin Rate by Pitch',
-       caption = 'For game pitched on July 7th',
-       color = 'Pitch Type')
+       caption = 'For game pitched on July 9th',
+       color = 'Pitch Type') +
+  scale_color_manual(values = c('4-Seam Fastball' = 'chocolate1',
+                                'Changeup' = 'chartreuse3',
+                                'Curveball' = 'cyan3',
+                                'Slider' = 'darkorchid2'))
 grjul9gr
 ```
 
