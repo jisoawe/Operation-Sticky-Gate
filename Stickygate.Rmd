@@ -6,7 +6,7 @@ output: html_notebook
 
 # What is Operation Sticky Gate?
 
-Major League Baseball's 2021 season has been marked by record breaking statistics. Particularly the record low ERA's, extremely high spin rates, and a record breaking amount of no-hitters a few months into the season. Baseball is a game many consider boring from lack of action...
+Major League Baseball's 2021 season has been marked by record breaking statistics. Particularly the record low ERA's, extremely high spin rates, and a recording breaking amount of no-hitters a few months into the season. Many consider baseball boring due to a 'lack of action', well this season that's proving true. 
 -avg spin rate prior to June 1st was around 2280
 -mention the og steroid era
 -data from start of season to June 1, and June 1 to July 17, from Baseball Savant.
@@ -14,7 +14,7 @@ Major League Baseball's 2021 season has been marked by record breaking statistic
 
 # Before the Crackdown
 
-For a long time MLB teams had what some would call a gentleman's agreement over utilizing foreign substances. Initially this started as a way for pitchers to better their grip on the ball when they pitched. Yet, now it's gotten to the point that the foreign substances are so sticky that instead of just helping the pitchers grip the ball, it's making the ball stick to their hand for longer, thus increasing the spin rate of the ball and making it harder to hit. As the spin of the ball increases the general location in which the ball is getting thrown is higher, adding to the difficulties hitters are facing. The spin on pitches like the 4-seam fastballs is a back spin, which opposes the downward force of gravity on the ball (think of the term 'rising fastball'). 
+For a long time MLB teams had what some would call a gentleman's agreement over utilizing foreign substances. Initially this started as a way for pitchers to better their grip on the ball when they pitched. Now, it's gotten to the point that the foreign substances are so sticky that rather than just helping pitchers grip the ball, it's making the ball stick to their hand for longer, thus increasing the spin rate of the ball and making it harder to hit. As the spin of the ball increases the general location in which the ball is getting thrown is higher, adding to the difficulties hitters are already facing. The spin on pitches like the 4-seam fastballs is a back spin, which opposes the downward force of gravity on the ball (think of the term 'rising fastball'). 
 
 The MLB made a decision coming out against foreign substances by stating that starting on June 1st umpires will begin checking for pitchers using foreign substances and on June 16th announced players caught using them will be removed from the game, placed on a 10 game suspension, and fined. Many people have argued that these statements won't deter pitchers from utilizing foreign substances. Yet many analysts have been saying spin rates going down and batting  averages going up. In this notebook we will be examining the affect of the MLB's new implementation and examining changes with individual players.
 
@@ -25,7 +25,6 @@ All the data included has been provided by Baseball Savant found through utilizi
 ## Velocity vs Spin Rate
 
 It's important to note that generally as increases velocity so does spin rate. In this section we will be comparing pitchers spin rates vs velocities before and after June 1st.
-
 
 
 ```{r}
@@ -172,7 +171,6 @@ num
 From this data we can see that during the month of June, Bauer's most utilized pitches were the fastball, cutter, and slider.
 
 
-
 #### June 28th
 
 ```{r}
@@ -264,7 +262,7 @@ tb28gr
 ```
 
 
-Here we can see the drastic drop in Bauer's spin rate between the two games only 22 days apart. During Bauer's June 6th game, before the League started implementing the 10-day suspension rule, it can be seen that he has several pitches being thrown at above 3000 rpm and with the exception of his changeup's all of his pitches are rotating above 2500 rpm. Yet, by June 28th, Bauer didn't have a single pitch with a spin rate above 3000 rpm. In addition to this, Bauer's [ERA](https://github.com/jisoawe/MLB-Data-Visualizations/blob/main/ERA%20Explained.Rmd) during the two games went from 2.40 to 2.59, meaning he was allowing significantly more runs per inning after implementation. When seeing such large drops in spin rates, it can be speculated that the pitcher was utilizing sticky substances.
+Here we can see the drastic drop in Bauer's spin rate between the two games only 22 days apart. During Bauer's June 6th game, before the League started implementing the 10-day suspension rule, it can be seen that he has several pitches being thrown at above 3000 rpm and with the exception of his changeup's all of his pitches are rotating above 2500 rpm. Yet, by June 28th, Bauer didn't have a single pitch with a spin rate above 3000 rpm. In addition to this, Bauer's [ERA](https://github.com/jisoawe/MLB-Data-Visualizations/blob/main/ERA%20Explained.Rmd) during the two games increased from 2.40 to 2.59, meaning he was allowing significantly more runs and hits per inning after implementation. When seeing such large drops in spin rates, it can be speculated that the pitcher was utilizing sticky substances.
 
 #### Bauer's Sticky Verdict: GUILTY
 
@@ -272,7 +270,7 @@ Here we can see the drastic drop in Bauer's spin rate between the two games only
 
 ## Gerrit Cole
 
-After [this](https://twitter.com/mroberson22/status/1402377614086467586?s=20) infamous post game interview of Gerrit Cole, I can't not examine his stats and see if he was stuttering was an admission of guilt or if he was just tired.
+Yankee's pitcher Gerrit Cole has been leading the league in strikeouts for the entire season. And after [this](https://twitter.com/mroberson22/status/1402377614086467586?s=20) infamous post game interview of Gerrit Cole, I can't not look at his stats and see if the stuttering was an admission of guilt or if he was just tired. 
 
 
 ```{r}
@@ -319,7 +317,9 @@ We can see that from Cole's June 3rd game, the pitches with the highest speed we
 Cole's most utilized pitches during this game:
 
 * Fastball (high velocity & high spin rate)
+
 * Knuckle Curve (medium velocity & high spin rate)
+
 * Changeup (high velocity & low spin rate)
 
 
@@ -392,7 +392,7 @@ gcjl17gr <-
 gcjl17gr
 ```
 
-When comparing the two graphs the change in Cole's spin rates isn't as drastic as Bauer's. His changeup, fastball, and slider remained relatively similar to what they were during his starts from his games prior to implementation. Additionally, the spin on his curveball increased, nearly reaching 3000 rpm during at bat number 40. His average release velocities also stayed relatively similar. Although his ERA did go up by 0.4, which is a high increase to incur within a month and a half.
+When comparing the two graphs the change in Cole's spin rates isn't as drastic as Bauer's. His changeup, fastball, and slider remained relatively similar to what they were during his starts from his games prior to implementation. Additionally, the spin on his curveball increased, nearly reaching 3000 rpm during at bat number 40. His average release velocities also stayed relatively similar. Although his ERA did go up by 0.4 between these two games, which is a high increase to incur within a month and a half.
 
 
 #### Cole's Sticky Verdict: uh well... (probably) NOT GUILTY
@@ -400,7 +400,7 @@ When comparing the two graphs the change in Cole's spin rates isn't as drastic a
 
 ## Garrett Richards
 
-Red Sox pitcher Garrett Richards...
+Garrett Richards', Boston's newest pitcher has had a very [word] season so far...
 
 ```{r}
 grichdt <-  ## Garrett Richards data from Baseball Savant
@@ -441,7 +441,9 @@ Here we can see that from Richards' July 9th game, the pitches with the highest 
 Richards' most utilized pitches during this game:
 
 * Fastball (high velocity & medium spin rate)
+
 * Curveball (low velocity & high spin rate)
+
 * Slider (medium velocity & high spin rate)
 
 note: Richards' ERA during from this game was 4.91 [Baseball Reference](https://www.baseball-reference.com/boxes/BOS/BOS202107090.shtml)
@@ -469,7 +471,9 @@ During Richards' May 8th game, it can seen he only utilized three different type
 Richards' most utilized pitches during this game:
 
 * Fastball (high velocity & high spin rate)
+
 * Slider (medium velocity & high spin rate)
+
 * Curveball (low velocity & high spin rate)
 
 note: Richards' ERA during from this game was 4.54 [Baseball Reference](https://www.baseball-reference.com/boxes/BAL/BAL202105080.shtml)
@@ -493,7 +497,7 @@ grjul9gr <-
   grjul9 %>%
   ggplot(aes(x = release_speed, y = release_spin_rate, color = pitch_name)) +
   geom_point() +
-  xlab('At Bat Number') +
+  xlab('Release Speed (mph)') +
   ylab('Release Spin Rate') +
   labs(title = 'Gerritt Richards Spin Rate by Pitch',
        caption = 'For game pitched on July 9th',
@@ -505,6 +509,8 @@ grjul9gr <-
 grjul9gr
 ```
 
+
+When examining Richards' pitch velocities and spin rates between these two games there is a clear difference in performance. Generally, his pitches are more concentrated in the July game, showing that there's more consistency between the pitches he was throwing in July than in May. Richards' went from having more than half of his curveballs above 3300 rpm in May to not even having a single curveball reach 3000 rpm. When comparing the averages there's been a drop of 410 rpm in this pitch and a 4.25 mph drop in velocity. When looking at his sliders, the spin rates are concentrated around 2900 rpm, which then dropped to around 2600 rpm. The velocity change with this pitch wasn't as drastic shifting with an average of about 1.9 mph, which wouldn't be very suspicious if not for the other changes. Additionally, when looking at his fastballs (his most utilized pitch) there isn't as significant of a change. The velocities are concentrated in the same area and only had a change in 0.45 mph. The average spin rates for the fastball only dropped by 175 rpm, which by itself isn't particularly suspicious. Yet when looking at all of the changes in Richards' pitches and his game specific ERA increasing by 0.63 there is more than ample evidence that Richards' was in fact utilizing sticky substances.
 
 
 
