@@ -32,7 +32,6 @@ library(ggplot2) ## loading packages
 library(ggExtra)
 library(dplyr)
 library(tidyverse)
-library(plotly)
 ```
 
 
@@ -146,7 +145,7 @@ In contrast we can see that after June 1st, velocities are concentrated between 
 
 # Individual Pitcher Changes
 
-In this section we will be examining a change in spin rate, velocity, and overall performance (if any) between specific pitchers: Trevor Bauer, Gerrit Cole, and Garrett Richards.
+In this section we will be examining a change in spin rate, velocity, and overall performance (if any) between specific pitchers: Trevor Bauer, Gerrit Cole, Jacob deGrom, and Garrett Richards.
 
 ## Trevor Bauer
 
@@ -397,6 +396,45 @@ When comparing the two graphs the change in Cole's spin rates isn't as drastic a
 
 #### Cole's Sticky Verdict: uh well... (probably) NOT GUILTY
 
+## Jacob deGrom
+
+Jacob deGrom is arguably one of the best pitchers in all of baseball. With two Cy Young awards, a season ERA of 1.08, a season WAR of 5.0 (as of July 29th, 2021), and considering he was a shortstop in college, there is no doubt that he is a gifted player. Following all of his stellar performances this season, I was wondering if he had any change in pitching output.
+
+
+```{r}
+dgstats <-
+  read.csv('deGrom Advanced Stats.csv')
+dgstats
+```
+
+
+
+```{r}
+stpg <-
+  dgstats %>%
+  select(game_date, release_spin_rate, pitch_name) %>%
+  group_by(game_date, pitch_name) %>%
+  summarise(avgspin = mean(release_spin_rate), pitch_name, game_date)%>%
+  #group_by(pitch_name, game_date) %>%
+  summarise(avgspin, pitch_name, game_date)
+stpg 
+np <- stpg[!duplicated(stpg),]
+np
+```
+
+
+```{r}
+idkyet <-
+  np %>%
+  ggplot(aes(fill = pitch_name, y = avgspin, x = game_date)) +
+  geom_bar(position = 'stack', stat = 'identity') +
+  xlab('Game Date')
+  #facet_grid(~game_date)
+idkyet
+```
+
+
+
 
 ## Garrett Richards
 
@@ -417,6 +455,8 @@ grcounts <-
 grcounts
 ```
 
+Here we can see that Richards' most utilized pitch is his fastball with over 900 appearances within between May 8th and July 9th, followed by his slider and curveball. Whereas he rarely threw changeup and sinkers, only being used 33 and 6 times respectively.
+
 
 ```{r}
 grjul9 <-  ## filtering the data from Garrett Richard's most recent game
@@ -427,7 +467,7 @@ grjul9
 
 
 ```{r}
-jul9avgs <-
+jul9avgs <-  ##averages from July 9th game
   grjul9%>%
   select(pitch_name, release_spin_rate, release_speed) %>%
   group_by(pitch_name) %>%
