@@ -416,7 +416,7 @@ l8r <-
 l8r
 ```
 
-
+We can see that deGrom's most utilized this season have been the fastball, slider, and changeup, with his curveball only making 4 appearances.
 
 
 ```{r}
@@ -425,25 +425,39 @@ stpg <-
   select(game_date, release_spin_rate, pitch_name) %>%
   group_by(game_date, pitch_name) %>%
   summarise(avgspin = mean(release_spin_rate), pitch_name, game_date)%>%
-  #group_by(pitch_name, game_date) %>%
   summarise(avgspin, pitch_name, game_date) %>%
-  mutate(date = date(game_date)) %>%
+  mutate(game_date = date(game_date)) %>%
   filter(pitch_name != ('Curveball')) %>%
   filter(pitch_name != ('Changeup'))
-stpg 
 np <- stpg[!duplicated(stpg),]
 np
+
+slst <-
+  dgstats %>%
+  select(game_date, release_spin_rate, pitch_name) %>%
+  group_by(game_date, pitch_name) %>%
+  summarise(avgspin = mean(release_spin_rate)) %>%
+  mutate(game_date = date(game_date))%>%
+  filter(pitch_name == 'Changeup')
+lp <- slst[!duplicated(slst),]
+lp
 ```
 
 
 ```{r}
 idkyet <-
   np %>%
-  ggplot(aes(fill = fct_rev(pitch_name), y = avgspin, x = date)) +
+  ggplot(aes(fill = fct_rev(pitch_name), y = avgspin, x = game_date)) +
   geom_bar(position = 'stack', stat = 'identity') +
   xlab('Game Date') +
-  ylab('Average Spin Rate by Pitch')
+  ylab('Average Spin Rate by Pitch') +
+  labs(fill = 'Pitch Type',
+       caption = "Average spin rate of deGrom's fastballs and sliders from the start of the season to his last game on July 7th",
+       title = "deGrom's Average Spin Rate per Game")
 idkyet
+
+sld <-
+  np
 ```
 
 
