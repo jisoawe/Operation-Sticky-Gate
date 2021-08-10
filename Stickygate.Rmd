@@ -408,6 +408,55 @@ dgstats <-
 dgstats
 ```
 
+
+```{r}
+ap17 <-  ##filtering data from deGrom's first game
+  dgstats %>%
+  filter(game_date == '2021-04-17')
+ap17
+```
+
+```{r}
+ap17avg <-
+  ap17 %>%
+  group_by(pitch_name) %>%
+  select(pitch_name, release_spin_rate, release_speed) %>%
+  summarise(avgspin = mean(release_spin_rate, na.rm = TRUE), avgspeed = mean(release_speed, na.rm = TRUE), count = n()) %>%
+  arrange(pitch_name)
+ap17avg
+```
+
+From this data we can see that during this game deGrom only used three pitches, his fastball, changeup, and slider. All of these pitches had high speeds, each averaging above 90 mph. The fastball was used the most with that accounting for almost 60% of his pitches, whereas the changeup accounts for only 9% of his pitches from this game.
+
+deGrom's utilized pitches during this game:
+
+* Fastball (high velocity & medium spin rate)
+* Slider (high velocity & high spin rate)
+* Changeup (high velocity & low spin rate)
+
+
+note: deGrom's ERA during from this game was 0.45 [Baseball Reference](https://www.baseball-reference.com/boxes/COL/COL202104171.shtml)
+
+
+```{r}
+ap17gr <-
+  ap17 %>%
+  ggplot(aes(x = release_speed, y = release_spin_rate, color = pitch_name)) +
+  geom_point(stat = 'identity') +
+  xlab('Release Speed (mph)') +
+  ylab('Release Spin Rate (rpm)') +
+  labs(title = "Jacob deGrom's Spin Rate by Pitch",
+       caption = 'From the game pitched on April 17th',
+       color = 'Pitch Type')
+ap17gr
+```
+
+
+
+
+
+
+
 ```{r}
 l8r <-
   dgstats %>%
@@ -452,15 +501,24 @@ idkyet <-
   xlab('Game Date') +
   ylab('Average Spin Rate by Pitch') +
   labs(fill = 'Pitch Type',
-       caption = "Average spin rate of deGrom's fastballs and sliders from the start of the season to his last game on July 7th",
-       title = "deGrom's Average Spin Rate per Game")
+       caption = "From the start of the season to his last game on July 7th",
+       title = "deGrom's Average Spin Rate by Game")
 idkyet
 
-sld <-
-  np
+cug <-
+  lp %>%
+  ggplot(aes(x = game_date, y = avgspin )) +
+  geom_bar(stat = 'identity', fill = 'palegreen3') +
+  xlab('Game') +
+  ylab('Average Spin Rate') +
+  labs(title = "deGrom's Average Changeup Spin Rate by Game",
+       caption = "From the beginning of the season to July 7th")
+cug
 ```
 
+From this data we can see that deGrom's average spin rates from the start of the season to July 7th, that there is no large change in spin rate for any of his pitches. There seems to be more of a change when examining deGrom's changeups. They're all generally between 1500 and 1750 rpm, yet during his July 7th appearance his average jumps up to 1887.25 rpm. Due to deGrom utilizing his changeup only 104 times during this time period, I made a separate graph displaying those averages. This lack of change, leads me to believe that deGrom wasn't excessively using foreign substances.
 
+####  deGrom's Sticky Verdict: NOT Guilty
 
 
 ## Garrett Richards
@@ -483,6 +541,58 @@ grcounts
 ```
 
 Here we can see that Richards' most utilized pitch is his fastball with over 900 appearances within between May 8th and July 9th, followed by his slider and curveball. Whereas he rarely threw changeup and sinkers, only being used 33 and 6 times respectively.
+
+
+
+```{r}
+gravs <-
+  grichdt %>%
+  select(game_date, release_spin_rate, pitch_name) %>%
+  group_by(game_date, pitch_name) %>%
+  summarise(avgspin = mean(release_spin_rate, na.rm = TRUE)) %>%
+  mutate(game_date = date(game_date))
+gravs
+
+grfbs <-
+  grichdt %>%
+  filter(pitch_name == '4-Seam Fastball' | pitch_name == 'Slider') %>%
+  select(game_date, release_spin_rate, pitch_name) %>%
+  group_by(game_date, pitch_name) %>%
+  summarise(avgspin = mean(release_spin_rate, na.rm = TRUE)) %>%
+  mutate(game_date = date(game_date))
+grfbs
+
+grcb <-
+  grichdt %>%
+  filter(pitch_name == 'Curveball') %>%
+  select(game_date, release_spin_rate, pitch_name) %>%
+  group_by(game_date, pitch_name) %>%
+  summarise(avgspin = mean(release_spin_rate, na.rm = TRUE)) %>%
+  mutate(game_date = date(game_date))
+grcb
+```
+
+
+```{r}
+gravggr <-
+  gravs %>%
+  ggplot(aes(x = game_date, y = avgspin, fill = pitch_name)) +
+  geom_bar(stat = 'identity', position = 'stack')
+gravggr
+
+grfbsgr <-
+  grfbs%>%
+  ggplot(aes(x = game_date, y = avgspin, fill = pitch_name)) +
+  geom_bar(stat = 'identity', position = 'stack')
+grfbsgr
+
+grcbgr <-
+  grcb%>%
+  ggplot(aes(x = game_date, y = avgspin)) +
+  geom_bar(stat = 'identity', fill = 'palegreen3')
+grcbgr
+```
+
 
 
 ```{r}
