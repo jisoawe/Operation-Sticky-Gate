@@ -392,10 +392,10 @@ gcjl17gr <-
 gcjl17gr
 ```
 
-When comparing the two graphs the change in Cole's spin rates isn't as drastic as Bauer's. His changeup, fastball, and slider remained relatively similar to what they were during his starts from his games prior to implementation. Additionally, the spin on his curveball increased, nearly reaching 3000 rpm during at bat number 40. His average release velocities also stayed relatively similar. Although his ERA did go up by 0.4 between these two games, which is a high increase to incur within a month and a half.
+When comparing the two graphs the change in Cole's spin rates isn't as drastic as Bauer's. His changeup, fastball, and slider remained relatively similar to what they were during his starts from his games prior to implementation. Additionally, the spin on his curveball increased, nearly reaching 3000 rpm during at bat number 40. His average release velocities also stayed relatively similar. Additionally, Cole's ERA increased by 0.4 between during this these two games, leading me to think that with his pitches aren't rising up as much, therefore making them more hittable.
 
 
-#### Cole's Sticky Verdict: uh well... (probably) NOT GUILTY
+#### Cole's Sticky Verdict: uh well... (probably) GUILTY
 
 ## Jacob deGrom
 
@@ -583,13 +583,21 @@ gravggr
 grfbsgr <-
   grfbs%>%
   ggplot(aes(x = game_date, y = avgspin, fill = pitch_name)) +
-  geom_bar(stat = 'identity', position = 'stack')
+  geom_bar(stat = 'identity', position = 'stack') +
+  xlab('Game Date') +
+  ylab('Average Spin Rate (RPM)') +
+  labs(title = "Garrett Richard's Average Fastball and Slider Spin Rates",
+       caption = 'Data')
 grfbsgr
 
 grcbgr <-
   grcb%>%
   ggplot(aes(x = game_date, y = avgspin)) +
-  geom_bar(stat = 'identity', fill = 'palegreen3')
+  geom_bar(stat = 'identity', fill = 'palegreen3') +
+  ylab('Average Spin Rate (rpm)') +
+  xlab('Game Date') +
+  labs(title = "Garrett Richard's Average Curveball Spin Rate",
+       caption = 'From the start of the season to July 7th')
 grcbgr
 ```
 
